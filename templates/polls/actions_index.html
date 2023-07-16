@@ -1,0 +1,9 @@
+{% if actions_list %}
+    <ul>
+    {% for action in actions_list %}
+        <li><a href="/polls/actions/{{ action.id }}/">{{ action.action_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No actions are available.</p>
+{% endif %}

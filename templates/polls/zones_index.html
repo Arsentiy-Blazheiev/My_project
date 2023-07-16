@@ -1,0 +1,36 @@
+<!--{% if zones_list %}-->
+<!--    <form>-->
+<!--    {% for zone in zones_list %}-->
+<!--&lt;!&ndash;        <a href="/polls/zones/{{ zone.id }}/">{{ zone.zone_name }}</a>&ndash;&gt;-->
+<!--        <input type="checkbox" id={{ zone.zone_name }} name={{ zone.zone_name }} value={{ zone.zone_cost }}>-->
+<!--        <label for={{ zone.zone_name }}> {{ zone.zone_name }} </label><br>-->
+<!--        <label for={{ zone.zone_name }} |add:"quantity"> Quantity (between 1 and 5):</label>-->
+<!--        <input type="number" id="quantity" name="quantity" min="1" max="5" value="1">-->
+<!--    {% endfor %}-->
+<!--    </form>-->
+<!--{% else %}-->
+<!--    <p>No zones are available.</p>-->
+<!--{% endif %}-->
+
+<!--<form method="POST">-->
+<!--  {% csrf_token %}-->
+<!--  {% for zone in zones_list %}-->
+<!--    <input type="checkbox" id="{{ zone.zone_name }}" name="zones" value="{{ zone.zone_cost }}">-->
+<!--    <label for="{{ zone.zone_name }}">{{ zone.zone_name }}</label><br>-->
+<!--    <label for="{{ zone.zone_name }}_quantity">Количество (от 1 до 5):</label>-->
+<!--    <input type="number" id="{{ zone.zone_name }}_quantity" name="{{ zone.zone_name }}_quantity" min="1" max="5" value="0"><br>-->
+<!--  {% endfor %}-->
+<!--  <button type="submit">Рассчитать</button>-->
+<!--</form>-->
+
+
+<form method="POST">
+  {% csrf_token %}
+  {% for zone in zones_list %}
+    <input type="checkbox" id="{{ zone.zone_name }}" name="zones" value="{{ zone.zone_cost }}">
+    <label for="{{ zone.zone_name }}">{{ zone.zone_name }}</label><br>
+    <label for="{{ zone.zone_name }}_quantity">Кількість (від 1 до 5):</label>
+    <input type="number" id="{{ zone.zone_name }}_quantity" name="{{ zone.zone_name }}_quantity" min="1" max="5" value="{% if zone.is_selected %}1{% else %}0{% endif %}"><br>
+  {% endfor %}
+  <button type="submit">Рассчитать</button>
+</form>
