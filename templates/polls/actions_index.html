@@ -1,23 +1,28 @@
-<!--{% if actions_list %}-->
-<!--    <ul>-->
-<!--    {% for action in actions_list %}-->
-<!--&lt;!&ndash;        <li><a href="/polls/actions/{{ action.id }}/">{{ action.action_name }}</a></li>&ndash;&gt;-->
-<!--        <input type="checkbox" id="{{ action.action_name }}" name="actions" value="{{ action.action_cost }}">-->
-<!--        <label for="{{ action.action_name }}">{{ action.action_name }}</label><br>-->
-<!--    {% endfor %}-->
-<!--    </ul>-->
-<!--{% else %}-->
-<!--    <p>No actions are available.</p>-->
-<!--{% endif %}-->
-
-
-{% if actions_list %}
+<form method="POST">
+  {% csrf_token %}
+  {% if actions_list %}
     <ul>
     {% for action in actions_list %}
         <input type="radio" id="{{ action.action_name }}" name="selected_action" value="{{ action.id }}">
         <label for="{{ action.action_name }}">{{ action.action_name }}</label><br>
     {% endfor %}
+    <button type="submit">Далі</button>
     </ul>
-{% else %}
+  {% else %}
     <p>No actions are available.</p>
-{% endif %}
+  {% endif %}
+</form>
+
+
+
+<!--{% if actions_list %}-->
+<!--    <ul>-->
+<!--    {% for action in actions_list %}-->
+<!--        <input type="radio" id="{{ action.action_name }}" name="selected_action" value="{{ action.id }}">-->
+<!--        <label for="{{ action.action_name }}">{{ action.action_name }}</label><br>-->
+<!--    {% endfor %}-->
+<!--    <button type="submit">Далі</button>-->
+<!--    </ul>-->
+<!--{% else %}-->
+<!--    <p>No actions are available.</p>-->
+<!--{% endif %}-->

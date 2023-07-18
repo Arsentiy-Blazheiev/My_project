@@ -1,8 +1,6 @@
-# from django.shortcuts import render
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, reverse, redirect
 from django.http import HttpResponse
-from .models import DecorationZone
-from .models import Actions
+from .models import DecorationZone, Actions
 
 
 def zones_index(request):
@@ -26,5 +24,20 @@ def actions_index(request):
     return render(request, 'polls/actions_index.html', context)
 
 
+def next_step(request):
+    if request.method == 'POST':
+        return redirect('polls:next_model')
+    else:
+        return redirect('polls:zones_index')
+
+    # else:
+    #     return HttpResponseRedirect(reverse("polls:zones_index"))
+
 def action_detail(request, action_id):
     return HttpResponse("You're looking at action %s." % action_id)
+
+
+def next_model(request):
+    # Логика и шаблон для следующей модели
+    return render(request, 'polls/next_model.html')
+
