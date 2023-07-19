@@ -1,0 +1,13 @@
+<h1>Calculation Result</h1>
+<p>Total Cost: ${{ total_cost }}</p>
+<p>Zones:</p>
+<ul>
+  {% for zone_id, quantity in zones.items %}
+<!--    {% with zone=zones|get:zone_id %}-->
+<!--      <li>{{ zone.zone_name }} - Quantity: {{ quantity }}</li>-->
+<!--    {% endwith %}-->
+  {% endfor %}
+</ul>
+<p>Action: {{ action.action_name }}</p>
+<p>Way: {{ way.way_name }}</p>
+<p>Term: {{ term.term_name }}</p>

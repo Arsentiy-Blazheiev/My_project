@@ -17,20 +17,22 @@ class Actions(models.Model):
         return self.action_name
 
 
-# class Way(models.Model):
-#     way_name = models.CharField(max_length=100)
-#     way_cost = models.IntegerField(default=25)
-#
-#     def __str__(self):
-#         return self.way_name
-#
-#
-# class Terms(models.Model):
-#     term_name = models.CharField(max_length=100)
-#     term_cost = models.IntegerField(default=25)
-#
-#     def __str__(self):
-#         return self.term_name
+class Way(models.Model):
+    way_name = models.CharField(max_length=100)
+    way_cost = models.IntegerField(default=25)
+
+    def __str__(self):
+        return self.way_name
+
+
+class Terms(models.Model):
+    term_name = models.CharField(max_length=100)
+    term_cost = models.IntegerField(default=25)
+
+    def __str__(self):
+        return self.term_name
+
+
 
 # class Project(models.Model):
 #     zones = models.ManyToManyField(DecorationZone)
