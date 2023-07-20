@@ -1,0 +1,9 @@
+<h1>Select Action</h1>
+<form action="{% url 'polls:selection_index' %}" method="POST">
+  {% csrf_token %}
+  <input type="radio" id="online" name="selected_action_multiplier" value="1">
+  <label for="online">On-line</label><br>
+  <input type="radio" id="offline" name="selected_action_multiplier" value="2">
+  <label for="offline">Off-line</label><br>
+  <button type="submit">Next</button>
+</form>

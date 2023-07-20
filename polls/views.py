@@ -31,6 +31,9 @@ from .models import DecorationZone, Actions, Way, Terms
 # def next_model(request):
 #     return render(request, 'polls/next_model.html')
 
+def start(request):
+    return render(request, 'polls/start.html', {})
+
 
 def zones_index(request):
     if request.method == 'POST':
@@ -71,9 +74,29 @@ def way_index(request):
 
         return HttpResponseRedirect(reverse('polls:terms_index'))
 
+        # if selected_way == '1':  # Assuming 'on-line' has ID=1, you can change it based on your actual data
+        #     return HttpResponseRedirect(reverse('polls:selection_index'))
+        # else:
+        #     return HttpResponseRedirect(reverse('polls:terms_index'))
+
     way_list = Way.objects.all()
     context = {'way_list': way_list}
     return render(request, 'polls/way_index.html', context)
+
+
+
+def selection_index(request):
+    if request.method == 'POST':
+        selected_action_multiplier = request.POST.get('selected_action_multiplier')
+        request.session['selected_action_multiplier'] = selected_action_multiplier
+
+        return HttpResponseRedirect(reverse('polls:terms_index'))
+
+    return render(request, 'polls/selection_index.html')
+
+
+
+
 
 def terms_index(request):
     if request.method == 'POST':
@@ -85,6 +108,22 @@ def terms_index(request):
     terms_list = Terms.objects.all()
     context = {'terms_list': terms_list}
     return render(request, 'polls/terms_index.html', context)
+
+# def terms_index(request):
+#     selected_selection = request.POST.get('selected_selection')
+#     if selected_selection == 'online':
+#         return HttpResponseRedirect(reverse('polls:result'))
+#
+#     if request.method == 'POST':
+#         selected_term = request.POST.get('selected_term')
+#         request.session['selected_term'] = selected_term
+#
+#         return HttpResponseRedirect(reverse('polls:result'))
+#
+#     terms_list = Terms.objects.all()
+#     context = {'terms_list': terms_list}
+#     return render(request, 'polls/terms_index.html', context)
+
 
 def result(request):
     zones = request.session.get('zones', {})
@@ -106,9 +145,39 @@ def result(request):
     way_multiplier = way.way_cost
     term_multiplier = term.term_cost
 
-    total_cost *= action.action_cost / 25  # Adjust total cost based on action cost
+    total_cost *= action.action_cost  # Adjust total cost based on action cost
     total_cost *= way_multiplier  # Adjust total cost based on way multiplier
     total_cost *= term_multiplier  # Adjust total cost based on term multiplier
 
     context = {'zones': zones, 'zones_': zones_, 'action': action, 'way': way, 'term': term, 'total_cost': total_cost}
     return render(request, 'polls/result.html', context)
+
+
+# def result(request):
+#     zones = request.session.get('zones', {})
+#     zones_ = {}
+#     for zone_id, quantity in zones.items():
+#         zones_[DecorationZone.objects.get(id=zone_id).zone_name] = quantity
+#     selected_action = request.session.get('selected_action')
+#     selected_way = request.session.get('selected_way')
+#     selected_term = request.session.get('selected_term')
+#     total_cost = request.session.get('total_cost', 0)
+#     selected_action_multiplier = request.session.get('selected_action_multiplier', 1)
+#
+#     if not (zones and selected_action and selected_way and selected_term):
+#         return HttpResponseRedirect(reverse('polls:zones_index'))
+#
+#     action = get_object_or_404(Actions, pk=selected_action)
+#     way = get_object_or_404(Way, pk=selected_way)
+#     term = get_object_or_404(Terms, pk=selected_term)
+#
+#     way_multiplier = way.way_cost
+#     term_multiplier = term.term_cost
+#
+#     total_cost *= action.action_cost  # Adjust total cost based on action cost
+#     total_cost *= way_multiplier  # Adjust total cost based on way multiplier
+#     total_cost *= selected_action_multiplier
+#     total_cost *= term_multiplier  # Adjust total cost based on term multiplier
+#
+#     context = {'zones': zones, 'zones_': zones_, 'action': action, 'way': way, 'term': term, 'total_cost': total_cost}
+#     return render(request, 'polls/result.html', context)

@@ -1,3 +1,23 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+<form action="{% url 'polls:actions_index' %}" method="POST">
+  {% csrf_token %}
+  {% for action in actions_list %}
+    <input class="form-check-input" type="radio" id="{{ action.id }}" name="selected_action" value="{{ action.id }}">
+    <label class="form-check-label" for="{{ action.id }}">{{ action.action_name }}</label><br>
+
+<!--    <div class="form-check form-check-inline">-->
+<!--      <input class="form-check-input" type="radio" id="{{ action.id }}" name="selected_action" value="{{ action.id }}">-->
+<!--      <label class="form-check-label" for="{{ action.id }}">{{ action.action_name }}</label><br>-->
+<!--    </div>-->
+  {% endfor %}
+  <button type="submit">Далі</button>
+</form>
+{% endblock %}
+
+
+
 <!--<form method="POST">-->
 <!--  {% csrf_token %}-->
 <!--  {% if actions_list %}-->
@@ -26,12 +46,3 @@
 <!--{% else %}-->
 <!--    <p>No actions are available.</p>-->
 <!--{% endif %}-->
-
-<form action="{% url 'polls:actions_index' %}" method="POST">
-  {% csrf_token %}
-  {% for action in actions_list %}
-    <input type="radio" id="{{ action.id }}" name="selected_action" value="{{ action.id }}">
-    <label for="{{ action.id }}">{{ action.action_name }}</label><br>
-  {% endfor %}
-  <button type="submit">Next</button>
-</form>

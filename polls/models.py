@@ -19,7 +19,15 @@ class Actions(models.Model):
 
 class Way(models.Model):
     way_name = models.CharField(max_length=100)
-    way_cost = models.IntegerField(default=25)
+    way_cost = models.FloatField(default=1)
+
+    def __str__(self):
+        return self.way_name
+
+
+class Selection(models.Model):
+    way_name = models.CharField(max_length=100)
+    way_cost = models.FloatField(default=1)
 
     def __str__(self):
         return self.way_name
@@ -27,7 +35,7 @@ class Way(models.Model):
 
 class Terms(models.Model):
     term_name = models.CharField(max_length=100)
-    term_cost = models.IntegerField(default=25)
+    term_cost = models.FloatField(default=1)
 
     def __str__(self):
         return self.term_name
