@@ -1,8 +1,28 @@
-<form action="{% url 'polls:terms_index' %}" method="POST">
-  {% csrf_token %}
-  {% for term in terms_list %}
-    <input type="radio" id="{{ term.id }}" name="selected_term" value="{{ term.id }}">
-    <label for="{{ term.id }}">{{ term.term_name }}</label><br>
-  {% endfor %}
-  <button type="submit">Next</button>
-</form>
+{% extends 'polls/base.html' %}
+
+{% block content %}
+  <div class="container mt-5">
+    <form action="{% url 'polls:terms_index' %}" method="POST">
+      {% csrf_token %}
+      {% for term in terms_list %}
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="{{ term.id }}" name="selected_term" value="{{ term.id }}">
+          <label class="form-check-label" for="{{ term.id }}">{{ term.term_name }}</label>
+        </div>
+        <hr>
+      {% endfor %}
+      <button type="submit" class="btn btn-primary">Next</button>
+    </form>
+  </div>
+{% endblock %}
+
+
+
+<!--<form action="{% url 'polls:terms_index' %}" method="POST">-->
+<!--  {% csrf_token %}-->
+<!--  {% for term in terms_list %}-->
+<!--    <input type="radio" id="{{ term.id }}" name="selected_term" value="{{ term.id }}">-->
+<!--    <label for="{{ term.id }}">{{ term.term_name }}</label><br>-->
+<!--  {% endfor %}-->
+<!--  <button type="submit">Next</button>-->
+<!--</form>-->
