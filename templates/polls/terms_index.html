@@ -2,20 +2,21 @@
 
 {% block content %}
   <div class="container mt-5">
+    <h2>Оберіть термін виконання:</h2>
+    <br>
     <form action="{% url 'polls:terms_index' %}" method="POST">
       {% csrf_token %}
       {% for term in terms_list %}
         <div class="form-check">
           <input class="form-check-input" type="radio" id="{{ term.id }}" name="selected_term" value="{{ term.id }}">
-          <label class="form-check-label" for="{{ term.id }}">{{ term.term_name }}</label>
+          <label class="form-check-label" for="{{ term.id }}"><strong>{{ term.term_name }}</strong></label>
         </div>
         <hr>
       {% endfor %}
-      <button type="submit" class="btn btn-primary">Next</button>
+      <button type="submit" class="btn btn-primary">Далі-></button>
     </form>
   </div>
 {% endblock %}
-
 
 
 <!--<form action="{% url 'polls:terms_index' %}" method="POST">-->

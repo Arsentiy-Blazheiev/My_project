@@ -2,22 +2,27 @@
 
 {% block content %}
 <div class="container mt-5">
+    <h2>Оберіть зони, та їх кількість:</h2>
+    <br>
     <form action="{% url 'polls:zones_index' %}" method="POST">
       {% csrf_token %}
       {% for zone in zones_list %}
         <div class="form-check">
           <input class="form-check-input" type="checkbox" id="{{ zone.id }}" name="zones" value="{{ zone.id }}">
-          <label class="form-check-label" for="{{ zone.id }}">{{ zone.zone_name }}</label>
+          <label class="form-check-label" for="{{ zone.id }}"><strong>{{ zone.zone_name }}</strong></label>
         </div>
         <div class="form-group">
-          <label for="{{ zone.id }}_quantity">Quantity (between 1 and 5):</label>
+          <label for="{{ zone.id }}_quantity">Кількість зон (від 1 до 5):</label>
           <input type="number" class="form-control" id="{{ zone.id }}_quantity" name="{{ zone.zone_name }}_quantity" min="1" max="5" value="1">
         </div>
         <hr>
       {% endfor %}
-      <button type="submit" class="btn btn-primary">Next</button>
+      <button type="submit" class="btn btn-primary">Далі-></button>
     </form>
   </div>
+{% endblock %}
+
+
 <!--<form action="{% url 'polls:zones_index' %}" method="POST">-->
 <!--  {% csrf_token %}-->
 <!--  {% for zone in zones_list %}-->
@@ -29,7 +34,6 @@
 <!--  {% endfor %}-->
 <!--  <button type="submit" class="btn btn-primary">Next</button>-->
 <!--</form>-->
-{% endblock %}
 
 
 <!--<form action="{% url 'polls:actions_index' %}" method="POST">-->

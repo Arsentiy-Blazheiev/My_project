@@ -2,19 +2,23 @@
 
 {% block content %}
 <div class="container mt-5">
+    <h2>Оберіть дію, яку Ви б хотіли виконати в рамках проєкту:</h2>
+    <br>
     <form action="{% url 'polls:actions_index' %}" method="POST">
       {% csrf_token %}
       {% for action in actions_list %}
         <div class="form-check">
           <input class="form-check-input" type="radio" id="{{ action.id }}" name="selected_action" value="{{ action.id }}">
-          <label class="form-check-label" for="{{ action.id }}">{{ action.action_name }}</label>
+          <label class="form-check-label" for="{{ action.id }}"><strong>{{ action.action_name }}</strong></label>
         </div>
         <hr>
       {% endfor %}
-      <button type="submit" class="btn btn-primary">Next</button>
+      <button type="submit" class="btn btn-primary">Далі-></button>
     </form>
   </div>
 {% endblock %}
+
+
 <!--<form action="{% url 'polls:actions_index' %}" method="POST">-->
 <!--  {% csrf_token %}-->
 <!--  {% for action in actions_list %}-->
@@ -28,8 +32,6 @@
 <!--  {% endfor %}-->
 <!--  <button type="submit">Далі</button>-->
 <!--</form>-->
-
-
 
 
 <!--<form method="POST">-->
@@ -46,7 +48,6 @@
 <!--    <p>No actions are available.</p>-->
 <!--  {% endif %}-->
 <!--</form>-->
-
 
 
 <!--{% if actions_list %}-->
